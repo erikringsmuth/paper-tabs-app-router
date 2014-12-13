@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>app-router-examples</title>
+    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
+    <link rel="stylesheet" href="/css/styles.css" shim-shadowdom>
+    <link rel="import" href="/bower_components/polymer/polymer.html">
+    <link rel="import" href="/bower_components/core-animated-pages/core-animated-pages.html">
+    <link rel="import" href="/bower_components/core-animated-pages/transitions/slide-from-right.html">
+    <link rel="import" href="/bower_components/paper-tabs/paper-tabs.html">
+    <link rel="import" href="/bower_components/app-router/app-router.html">
+  </head>
+  <body unresolved>
+    <polymer-element name="paper-tabs-demo">
+      <template>
+        <style>
+          app-router {
+            position: relative;
+          }
+          paper-tabs {
+            background-color: #2f83d0;
+            color: #fff;
+          }
+          paper-tabs a {
+            color: white;
+            text-decoration: none;
+          }
+          .content {
+            padding: 0px 24px;
+          }
+        </style>
+        <paper-tabs selected="{{selected}}" valueattr="path">
+          <paper-tab path="/"><a href="#/" horizontal layout center-center>Page 1</a></paper-tab>
+          <paper-tab path="/second"><a href="#/second" horizontal layout center-center>Page 2</a></paper-tab>
+          <paper-tab path="/third"><a href="#/third" horizontal layout center-center>Page 3</a></paper-tab>
+        </paper-tabs>
+        <div class="content">
+          <app-router id="router" mode="hash" core-animated-pages transitions="slide-from-right">
+            <app-route path="/" import="/pages/first-page.html"></app-route>
+            <app-route path="/second" import="/pages/second-page.html"></app-route>
+            <app-route path="/third" import="/pages/third-page.html"></app-route>
+            <app-route path="*" redirect="/"></app-route>
+          </app-router>
+        </div>
+      </template>
+      <script>
+        Polymer({
+          ready: function() {
+            this.selected = this.$.router.activeRoute.getAttribute('path');
+          }
+        });
+      </script>
+    </polymer-element>
+    <paper-tabs-demo></paper-tabs-demo>
+  </body>
+</html>
